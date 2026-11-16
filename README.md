@@ -20,7 +20,7 @@ Search the file for these markers:
 | Highlight numbers | `class="readout"` |
 | About | `id="about"` |
 | Experience | `id="experience"`. Each job is an `<article class="job">` block |
-| Agents | `id="building"`. Copy a `<div class="card">` block for each new agent |
+| Projects and agents | `id="building"`. Copy a `<div class="card">` block for each new project |
 | Interests | `id="interests"`. Replace each `Add an interest` chip |
 | Contact links | `id="contact"` |
 | Colors and fonts | the `:root` block at the top of `<style>` |
