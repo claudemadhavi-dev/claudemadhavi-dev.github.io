@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Madhavi Adusumilli</title>
+<meta name="description" content="Madhavi Adusumilli: data science and analytics leader in experimentation, causal inference and AI impact measurement. Now building AI agents.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Layout idea: a measured, editorial single page. Left-aligned column, mono "readout" labels,
+   results set like experiment metrics, a lift-bar motif borrowed from A/B test readouts. */
+:root{
+  --paper:#f4f5f7;
+  --surface:#ffffff;
+  --ink:#16202e;
+  --muted:#5a6578;
+  --line:#dde1e8;
+  --accent:#2347d6;
+  --signal:#e2622b;
+  --font-display:"Instrument Serif", Georgia, "Times New Roman", serif;
+  --font-body:"IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono:"IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0f141c; --surface:#161d28; --ink:#e8ecf2; --muted:#9aa5b8; --line:#273142;
+    --accent:#8aa2ff; --signal:#ff8a55; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0f141c; --surface:#161d28; --ink:#e8ecf2; --muted:#9aa5b8; --line:#273142;
+  --accent:#8aa2ff; --signal:#ff8a55; color-scheme:dark;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-body);font-size:17px;line-height:1.6}
+a{color:var(--accent);text-underline-offset:3px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+h1,h2,h3{text-wrap:balance;margin:0}
+p{margin:0}
+
+.wrap{max-width:1040px;margin:0 auto;padding:0 24px}
+@media (max-width:420px){.wrap{padding:0 16px}}
+
+/* Nav */
+.nav{position:sticky;top:0;z-index:5;background:color-mix(in srgb, var(--paper) 88%, transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:60px}
+.brand{font-family:var(--font-display);font-size:24px;color:var(--ink);text-decoration:none}
+.nav ul{display:flex;gap:22px;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+.nav ul a{color:var(--muted);text-decoration:none;font-size:14px}
+.nav ul a:hover{color:var(--ink)}
+@media (max-width:720px){.nav ul{display:none}}
+
+.label{font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+
+/* Hero */
+.hero{padding:72px 0 56px}
+.hero .label{color:var(--signal)}
+.hero h1{font-family:var(--font-display);font-weight:400;font-size:clamp(44px,7vw,84px);line-height:1.02;margin:14px 0 22px;letter-spacing:-.01em}
+.hero h1 em{color:var(--accent)}
+.hero .lede{max-width:62ch;font-size:19px;color:var(--muted)}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 18px;border-radius:999px;font-size:15px;font-weight:500;text-decoration:none;border:1px solid var(--line);color:var(--ink);background:var(--surface)}
+.btn.primary{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.btn:hover{border-color:var(--accent)}
+.btn svg{width:16px;height:16px;fill:currentColor}
+
+/* Metrics readout */
+.readout{margin-top:56px;display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--ink);border-bottom:1px solid var(--line)}
+.metric{padding:20px 20px 22px 0}
+.metric + .metric{padding-left:20px;border-left:1px solid var(--line)}
+.metric .num{font-family:var(--font-display);font-size:44px;line-height:1;font-variant-numeric:tabular-nums}
+.metric .what{margin-top:8px;font-size:14px;color:var(--muted);line-height:1.4}
+@media (max-width:760px){
+  .readout{grid-template-columns:1fr 1fr}
+  .metric:nth-child(3){padding-left:0;border-left:0}
+  .metric:nth-child(n+3){border-top:1px solid var(--line)}
+}
+
+/* Sections */
+section.block{padding:72px 0;border-top:1px solid var(--line)}
+.head{display:grid;grid-template-columns:220px 1fr;gap:32px;align-items:start}
+.head h2{font-family:var(--font-display);font-weight:400;font-size:40px;line-height:1.05;margin-top:8px}
+@media (max-width:760px){.head{grid-template-columns:1fr;gap:12px}}
+.prose{display:grid;gap:16px;max-width:64ch}
+
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.chip{font-size:14px;padding:6px 12px;border:1px solid var(--line);border-radius:999px;background:var(--surface)}
+.chip.todo{border-style:dashed;color:var(--muted);background:transparent}
+
+/* Experience */
+.jobs{display:grid;gap:0}
+.job{display:grid;grid-template-columns:220px 1fr;gap:32px;padding:28px 0;border-top:1px solid var(--line)}
+.job:first-child{border-top:0;padding-top:0}
+.job .when{font-family:var(--font-mono);font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.job .co{font-weight:600;font-size:15px;letter-spacing:.02em;text-transform:uppercase;margin-bottom:2px}
+.job h3{font-size:20px;font-weight:500}
+.job p.sum{color:var(--muted);margin-top:6px;max-width:64ch}
+.job ul{list-style:none;padding:0;margin:14px 0 0;display:grid;gap:10px}
+.job li{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:baseline}
+.lift{font-family:var(--font-mono);font-size:13px;font-weight:500;color:var(--signal);min-width:64px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.roles{display:grid;gap:22px}
+.role h3{font-size:18px}
+@media (max-width:760px){.job{grid-template-columns:1fr;gap:8px}}
+
+/* Building */
+.build-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:28px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px;display:grid;gap:10px;align-content:start}
+.card.soon{border-style:dashed;background:transparent}
+.status{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--signal)}
+.status::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--signal)}
+.card h3{font-size:19px;font-weight:500}
+.card p{color:var(--muted);font-size:15px}
+
+/* Two col facts */
+.facts{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:8px}
+@media (max-width:760px){.facts{grid-template-columns:1fr}}
+.facts ul{list-style:none;padding:0;margin:10px 0 0;display:grid;gap:8px}
+.facts li{padding-bottom:8px;border-bottom:1px solid var(--line)}
+
+/* Contact */
+.contact{padding:80px 0 56px;border-top:1px solid var(--ink)}
+.contact h2{font-family:var(--font-display);font-weight:400;font-size:clamp(36px,5vw,56px);line-height:1.05;max-width:18ch}
+.links{display:grid;gap:0;margin-top:32px;max-width:640px}
+.links a{display:flex;justify-content:space-between;gap:16px;padding:16px 0;border-top:1px solid var(--line);color:var(--ink);text-decoration:none;font-size:18px}
+.links a:last-child{border-bottom:1px solid var(--line)}
+.links a span:last-child{color:var(--muted);font-family:var(--font-mono);font-size:14px;overflow-wrap:anywhere;text-align:right}
+.links a:hover span:first-child{color:var(--accent)}
+footer{padding:24px 0 40px;color:var(--muted);font-size:14px}
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Main">
+  <div class="wrap">
+    <a class="brand" href="#top">Madhavi Adusumilli</a>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#building">Building</a></li>
+      <li><a href="#interests">Interests</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main id="top">
+  <header class="hero">
+    <div class="wrap">
+      <div class="label">Data science · Experimentation · AI impact</div>
+      <h1>I measure what <em>actually</em> moves the needle. Now I'm building AI agents.</h1>
+      <p class="lede">I'm a data science and analytics leader with 15+ years at Squarespace, Intuit and eBay. I design the experiments and measurement systems that separate real incremental lift from noise, and turn the evidence into investment decisions.</p>
+      <div class="cta">
+        <a class="btn primary" href="https://github.com/claudemadhavi-dev">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+          GitHub
+        </a>
+        <a class="btn" href="https://www.linkedin.com/in/madhaviadusumilli">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M0 1.15C0 .52.52 0 1.18 0h13.64C15.48 0 16 .52 16 1.15v13.7c0 .63-.52 1.15-1.18 1.15H1.18C.52 16 0 15.48 0 14.85V1.15zm4.94 12.24V6.17H2.54v7.22h2.4zM3.74 5.18c.84 0 1.36-.55 1.36-1.25-.02-.71-.52-1.25-1.34-1.25-.82 0-1.36.54-1.36 1.25 0 .7.52 1.25 1.33 1.25h.01zm4.91 8.21V9.36c0-.22.02-.43.08-.59.17-.43.57-.88 1.23-.88.87 0 1.22.66 1.22 1.64v3.86h2.4V9.25c0-2.22-1.18-3.25-2.76-3.25-1.27 0-1.84.7-2.16 1.19v.02h-.02l.02-.02V6.17h-2.4c.03.68 0 7.22 0 7.22h2.4z"/></svg>
+          LinkedIn
+        </a>
+      </div>
+
+      <div class="readout" aria-label="Highlights">
+        <div class="metric"><div class="num">15+</div><div class="what">years in experimentation, causal inference and KPI design</div></div>
+        <div class="metric"><div class="num">~$150M</div><div class="what">annual marketing spend I measure at Squarespace</div></div>
+        <div class="metric"><div class="num">$700M</div><div class="what">revenue and margin growth from QuickBooks pricing work</div></div>
+        <div class="metric"><div class="num">1</div><div class="what">Scott Cook Innovation Award, Intuit</div></div>
+      </div>
+    </div>
+  </header>
+
+  <section class="block" id="about">
+    <div class="wrap head">
+      <div><div class="label">01 · About</div><h2>About me</h2></div>
+      <div class="prose">
+        <p>My work sits where data meets decisions. Across B2B and small-business software, I've built the measurement frameworks that tell leaders what's really working: A/B, geo and holdout experiments, media mix modeling, multi-touch attribution and incrementality testing.</p>
+        <p>Today I lead marketing analytics and operations at Squarespace, where I also measure how AI tools change the way teams work: adoption, time saved and the quality of what they produce. That work got me curious about building agents myself, so I'm doing that next, in the open.</p>
+        <p>I'm still hands-on in SQL, Python and statistical modeling, and I care most about turning complex analysis into a clear recommendation someone can act on.</p>
+        <div class="chips" aria-label="Focus areas">
+          <span class="chip">Experimentation &amp; causal inference</span>
+          <span class="chip">AI impact measurement</span>
+          <span class="chip">GTM analytics</span>
+          <span class="chip">Incrementality &amp; MMM</span>
+          <span class="chip">KPI design &amp; scorecards</span>
+          <span class="chip">Forecasting &amp; investment sizing</span>
+          <span class="chip">Team leadership</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="experience">
+    <div class="wrap">
+      <div class="head" style="margin-bottom:36px">
+        <div><div class="label">02 · Experience</div><h2>Where I've worked</h2></div>
+        <p class="prose" style="color:var(--muted)">Each number below is a measured result from the work.</p>
+      </div>
+
+      <div class="jobs">
+        <article class="job">
+          <div class="when">Apr 2025 – Present</div>
+          <div>
+            <div class="co">Squarespace</div>
+            <h3>Head of Marketing Analytics &amp; Operations</h3>
+            <p class="sum">Analytics and operations across Squarespace Websites, Domains and Acuity, partnering with Marketing, Finance, Product and Engineering.</p>
+            <ul>
+              <li><span class="lift">~$150M</span><span>Guide annual marketing spend through incremental ROI and customer lifetime value.</span></li>
+              <li><span class="lift">AI</span><span>Track AI workflow adoption, time savings and output quality to measure the productivity impact of AI tools.</span></li>
+              <li><span class="lift">MMM</span><span>Lead MMM, MTA and incrementality programs that isolate true growth drivers from seasonality and other confounders.</span></li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="job">
+          <div class="when">Oct 2013 – Sep 2024</div>
+          <div>
+            <div class="co">Intuit · QuickBooks</div>
+            <div class="roles">
+              <div class="role">
+                <h3>Group Manager, Data Science &amp; Product Analytics</h3>
+                <div class="when">Aug 2020 – Sep 2024</div>
+                <p class="sum">Led data science and analytics for QuickBooks Desktop and Accountants, a $4.2B revenue business.</p>
+                <ul>
+                  <li><span class="lift">+$700M</span><span>Revenue and margin growth from pricing strategy revisions, 2020–2024.</span></li>
+                  <li><span class="lift">+$120M</span><span>Incremental revenue from customer segmentation and personalization.</span></li>
+                  <li><span class="lift">+35%</span><span>More actionable insights through streamlined customer data curation.</span></li>
+                </ul>
+              </div>
+              <div class="role">
+                <h3>Manager, Data Science &amp; Product Analytics</h3>
+                <div class="when">Feb 2016 – Jul 2020</div>
+                <ul>
+                  <li><span class="lift">+24%</span><span>ROI across $23M in paid search through media mix modeling.</span></li>
+                  <li><span class="lift">+40%</span><span>Lead generation, with customer retention up 28%.</span></li>
+                  <li><span class="lift">−21%</span><span>Customer drop-offs, using attribution and A/B testing to remove funnel friction.</span></li>
+                </ul>
+              </div>
+              <div class="role">
+                <h3>Staff Analyst, Data Science &amp; Product Analytics</h3>
+                <div class="when">Oct 2013 – Jan 2016</div>
+                <ul>
+                  <li><span class="lift">+18%</span><span>Retail market share from Intuit's first drive-to-retail targeting model.</span></li>
+                  <li><span class="lift">−30%</span><span>Data discrepancies after rolling out analytics standards across six countries.</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="job">
+          <div class="when">Apr 2011 – Sep 2013</div>
+          <div>
+            <div class="co">eBay Classifieds</div>
+            <h3>Site Analytics Strategist</h3>
+            <ul>
+              <li><span class="lift">+20%</span><span>Quarterly revenue from dynamic pricing across 10 global markets.</span></li>
+              <li><span class="lift">+30%</span><span>Customer engagement, with conversion up 20%, through analytics instrumentation.</span></li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="job">
+          <div class="when">Earlier</div>
+          <div>
+            <div class="co">Cisco</div>
+            <h3>Web Metrics Analyst</h3>
+            <ul>
+              <li><span class="lift">97%</span><span>Data accuracy, with processing 35% faster.</span></li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="building">
+    <div class="wrap head">
+      <div><div class="label">03 · Building</div><h2>Agents I'm building</h2></div>
+      <div>
+        <div class="prose">
+          <p>I've spent years measuring what AI does for teams. Now I'm building agents myself, and sharing the work on GitHub as I go. Each project will land here with what it does, how I built it and what I learned measuring it.</p>
+        </div>
+        <div class="build-grid">
+          <div class="card soon">
+            <span class="status">In progress</span>
+            <h3>First agent</h3>
+            <p>Coming soon. Follow along on GitHub to see it take shape.</p>
+            <a href="https://github.com/claudemadhavi-dev">github.com/claudemadhavi-dev →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="interests">
+    <div class="wrap head">
+      <div><div class="label">04 · Beyond work</div><h2>Interests</h2></div>
+      <div class="prose">
+        <p>What I'm into when I'm not running experiments.</p>
+        <div class="chips">
+          <span class="chip todo">Add an interest</span>
+          <span class="chip todo">Add an interest</span>
+          <span class="chip todo">Add an interest</span>
+        </div>
+        <div class="facts">
+          <div>
+            <div class="label">Education</div>
+            <ul>
+              <li>MS, Electrical Engineering, The University of Texas at San Antonio</li>
+              <li>BS, Electrical Engineering, Nagarjuna University, India</li>
+              <li>AI-Driven Leadership Strategies, Stanford University</li>
+              <li>Certified Omniture Insight Architect, Adobe</li>
+            </ul>
+          </div>
+          <div>
+            <div class="label">Toolkit</div>
+            <ul>
+              <li>SQL · Python · SAS</li>
+              <li>BigQuery · Hive · Vertica</li>
+              <li>Tableau · Salesforce</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <div class="wrap">
+      <div class="label">05 · Contact</div>
+      <h2>Let's talk about measurement, AI or agents.</h2>
+      <div class="links">
+        <a href="https://www.linkedin.com/in/madhaviadusumilli"><span>LinkedIn</span><span>in/madhaviadusumilli</span></a>
+        <a href="https://github.com/claudemadhavi-dev"><span>GitHub</span><span>claudemadhavi-dev</span></a>
+        <a href="mailto:madhavi83@gmail.com"><span>Email</span><span>madhavi83@gmail.com</span></a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">© 2026 Madhavi Adusumilli</div>
+</footer>
+
+</body>
+</html>
